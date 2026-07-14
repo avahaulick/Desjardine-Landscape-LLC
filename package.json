@@ -1,0 +1,15 @@
+{
+  "name": "desjardine-landscaping-llc-site",
+  "private": true,
+  "version": "1.0.0",
+  "author": "Desjardine Landscaping LLC",
+  "scripts": {
+    "dev": "concurrently \"npm --prefix server run dev\" \"npm --prefix client run dev\"",
+    "build": "npm --prefix client run build",
+    "start": "npm --prefix server run start",
+    "lint": "npm --prefix server run lint && npm --prefix client run lint"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.3"
+  }
+}

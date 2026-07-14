@@ -1,0 +1,9 @@
+node_modules
+npm-debug.log*
+.git
+.github
+.vscode
+client/node_modules
+client/dist
+server/node_modules
+*.md
