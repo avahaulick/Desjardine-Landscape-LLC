@@ -14,12 +14,12 @@ const API_BASE = import.meta.env.DEV ? 'http://localhost:3002' : '';
 const VIDEO_WALKTHROUGHS = [
   {
     title: 'Full Property Transformation Walkthrough',
-    description: 'See the real-time process from initial grading through final finish details.',
+    description: 'See my real-time process from initial grading through final finish details.',
     src: `${API_BASE}/media/Walkthrough.mp4`,
   },
   {
     title: 'Landscape Install Walkthrough',
-    description: 'Watch the crew build out clean lines, stonework, and polished curb appeal.',
+    description: 'Watch me build out clean lines, stonework, and polished curb appeal.',
     src: `${API_BASE}/media/walkthrough1.mp4`,
   },
 ]
@@ -264,8 +264,8 @@ function App() {
             <p className="eyebrow">Desjardine Landscaping LLC</p>
             <h1>Before and After Transformations That Speak for Themselves</h1>
             <p className="hero-text">
-              Premium landscape transformations built for curb appeal, durability, and long-term value.
-              Explore real projects and see the difference from day one to completed install.
+              I build premium landscape transformations designed for curb appeal, durability, and long-term
+              value. Explore my real project gallery and see the difference from day one to final install.
             </p>
             <div className="cta-row">
               <a className="cta-primary link-with-icon" href={CONTACT.phoneHref}>
@@ -274,7 +274,7 @@ function App() {
               </a>
               <a className="cta-secondary link-with-icon" href={CONTACT.emailHref}>
                 <ContactIcon type="email" />
-                <span>Email Us</span>
+                <span>Email Me</span>
               </a>
               <a
                 className="cta-secondary link-with-icon"
@@ -319,7 +319,7 @@ function App() {
       <main className="gallery" id="main-content" aria-busy={loading}>
         <div className="section-heading">
           <h2>Project Showcase</h2>
-          <p>Each project card features before/after sliders sourced directly from your job folders.</p>
+          <p>Each project card features before/after sliders sourced directly from Patrick&apos;s completed job folders.</p>
         </div>
 
         {loading && (
@@ -394,29 +394,27 @@ function App() {
           <div className="about-copy">
             <h2 id="about-heading">About</h2>
             <p>
-              At <strong>Desjardine Landscaping LLC</strong>, we believe every outdoor space has the
-              potential to become something extraordinary. Founded by Patrick Desjardine, our company is
-              built on a passion for craftsmanship, reliability, and creating landscapes that homeowners
-              and businesses can enjoy for years to come.
+              I founded <strong>Desjardine Landscaping LLC</strong> because I believe every outdoor space
+              has the potential to become something extraordinary. I built this business on craftsmanship,
+              reliability, and creating landscapes that homeowners and businesses can enjoy for years.
             </p>
             <p>
               Patrick has been working in the landscaping industry since <strong>2009</strong>, bringing
               more than a decade of hands-on experience to every project. From groundbreaking new
               landscape installations and complete property transformations to routine landscape
-              enhancements, he takes pride in delivering exceptional quality with careful attention to
-              every detail.
+              enhancements, I take pride in delivering exceptional quality with careful attention to every
+              detail.
             </p>
             <p>
-              As a family-owned and operated business, our values extend beyond the job site. Patrick is
-              a devoted husband and proud father, and those same principles of honesty, hard work, and
-              commitment to family guide the way we serve every customer. We understand that your
-              property is an investment, and we treat it with the same care and respect we would our own.
+              As a family-owned and operated business, my values extend beyond the job site. I am a
+              devoted husband and proud father, and those same principles of honesty, hard work, and
+              commitment to family guide the way I serve every customer. I understand that your property
+              is an investment, and I treat it with the same care and respect I would give my own.
             </p>
             <p>
-              Whether you are looking to create your dream outdoor living space, enhance your home's curb
-              appeal, or start fresh with a complete landscape design, Desjardine Landscaping LLC is
-              dedicated to bringing your vision to life through dependable service, expert craftsmanship,
-              and lasting results.
+              Whether you are looking to create your dream outdoor living space, enhance your home&apos;s curb
+              appeal, or start fresh with a complete landscape design, I am dedicated to bringing your
+              vision to life through dependable service, expert craftsmanship, and lasting results.
             </p>
           </div>
         </div>
@@ -424,7 +422,7 @@ function App() {
 
       <section className="contact-section" id="contact">
         <h2>Request A Quote</h2>
-        <p>Send us your project details and we will get back to you with next steps.</p>
+        <p>Send me your project details and I&apos;ll get back to you with next steps.</p>
 
         <form className="contact-form" onSubmit={handleContactSubmit} noValidate>
           <label htmlFor="name">Name</label>
