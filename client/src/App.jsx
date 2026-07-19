@@ -9,6 +9,21 @@ const CONTACT = {
   facebookHref: 'https://www.facebook.com/share/1Cx52uzPaf/',
 }
 
+const API_BASE = import.meta.env.DEV ? 'http://localhost:3002' : '';
+
+const VIDEO_WALKTHROUGHS = [
+  {
+    title: 'Full Property Transformation Walkthrough',
+    description: 'See the real-time process from initial grading through final finish details.',
+    src: `${API_BASE}/media/Walkthrough.mp4`,
+  },
+  {
+    title: 'Landscape Install Walkthrough',
+    description: 'Watch the crew build out clean lines, stonework, and polished curb appeal.',
+    src: `${API_BASE}/media/walkthrough1.mp4`,
+  },
+]
+
 function ContactIcon({ type }) {
   if (type === 'phone') {
     return (
@@ -333,13 +348,78 @@ function App() {
         )}
       </main>
 
-      <section className="about" id="about">
-        <h2>About Us</h2>
-        <p>
-          Desjardine Landscaping LLC is committed to craftsmanship, clear communication, and reliable
-          project execution. From stone pathways to full backyard makeovers, each install is designed to
-          fit the property and stand up to the seasons.
-        </p>
+      <section className="walkthroughs" id="walkthroughs" aria-labelledby="walkthroughs-heading">
+        <div className="section-heading">
+          <h2 id="walkthroughs-heading">Video Walkthroughs</h2>
+          <p>Watch Pat's work come together in real time.</p>
+        </div>
+
+        <div className="walkthrough-grid">
+          {VIDEO_WALKTHROUGHS.map((video, index) => (
+            <article className="walkthrough-card" key={video.src}>
+              <h3>{video.title}</h3>
+              <p>{video.description}</p>
+              <video controls preload="metadata" className="walkthrough-video">
+                <source src={video.src} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              {index === 0 && (
+                <div className="walkthrough-logo-container">
+                  <img
+                    src="/media/company-logo.jpg"
+                    alt="Desjardine Landscaping LLC company logo"
+                    className="walkthrough-logo"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              )}
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="about" id="about" aria-labelledby="about-heading">
+        <div className="about-layout">
+          <figure className="about-photo-wrap">
+            <img
+              src="/media/family-picture.jpg"
+              alt="The Desjardine Landscaping family"
+              className="about-photo"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+
+          <div className="about-copy">
+            <h2 id="about-heading">About</h2>
+            <p>
+              At <strong>Desjardine Landscaping LLC</strong>, we believe every outdoor space has the
+              potential to become something extraordinary. Founded by Patrick Desjardine, our company is
+              built on a passion for craftsmanship, reliability, and creating landscapes that homeowners
+              and businesses can enjoy for years to come.
+            </p>
+            <p>
+              Patrick has been working in the landscaping industry since <strong>2009</strong>, bringing
+              more than a decade of hands-on experience to every project. From groundbreaking new
+              landscape installations and complete property transformations to routine landscape
+              enhancements, he takes pride in delivering exceptional quality with careful attention to
+              every detail.
+            </p>
+            <p>
+              As a family-owned and operated business, our values extend beyond the job site. Patrick is
+              a devoted husband and proud father, and those same principles of honesty, hard work, and
+              commitment to family guide the way we serve every customer. We understand that your
+              property is an investment, and we treat it with the same care and respect we would our own.
+            </p>
+            <p>
+              Whether you are looking to create your dream outdoor living space, enhance your home's curb
+              appeal, or start fresh with a complete landscape design, Desjardine Landscaping LLC is
+              dedicated to bringing your vision to life through dependable service, expert craftsmanship,
+              and lasting results.
+            </p>
+          </div>
+        </div>
       </section>
 
       <section className="contact-section" id="contact">

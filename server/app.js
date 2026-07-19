@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
-const fs = require('fs/promises');
+const fs = require('fs');
+const fsAsync = require('fs/promises');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
@@ -18,7 +19,7 @@ const IMAGES_DIR = path.resolve(__dirname, '..', 'images');
 const CLIENT_DIST_DIR = path.resolve(__dirname, '..', 'client', 'dist');
 
 const allowedOrigins = String(
-  process.env.ALLOWED_ORIGINS || process.env.ALLOWED_ORIGIN || 'http://localhost:5173,http://localhost:3000',
+  process.env.ALLOWED_ORIGINS || process.env.ALLOWED_ORIGIN || 'http://localhost:5180,http://localhost:5173,http://localhost:3000',
 )
   .split(',')
   .map((origin) => origin.trim())
@@ -61,11 +62,64 @@ app.use(
 
 app.use(routes);
 
+// Custom video streaming handler for MP4 files
+app.get('/media/:filename', async (req, res, next) => {
+  try {
+    const filename = path.basename(req.params.filename);
+    const filepath = path.join(IMAGES_DIR, filename);
+
+    // Security: prevent directory traversal
+    if (!filepath.startsWith(IMAGES_DIR)) {
+      return res.status(403).send('Forbidden');
+    }
+
+    // Check if file exists
+    const stat = await fsAsync.stat(filepath);
+
+    if (!stat.isFile()) {
+      return res.status(404).send('Not Found');
+    }
+
+    const filesize = stat.size;
+    const range = req.headers.range;
+
+    if (range) {
+      const parts = range.replace(/bytes=/, '').split('-');
+      const start = parseInt(parts[0], 10);
+      const end = parts[1] ? parseInt(parts[1], 10) : filesize - 1;
+      const chunksize = end - start + 1;
+
+      res.writeHead(206, {
+        'Content-Range': `bytes ${start}-${end}/${filesize}`,
+        'Accept-Ranges': 'bytes',
+        'Content-Length': chunksize,
+        'Content-Type': 'video/mp4',
+      });
+
+      fs.createReadStream(filepath, { start, end }).pipe(res);
+    } else {
+      res.writeHead(200, {
+        'Content-Length': filesize,
+        'Content-Type': 'video/mp4',
+        'Accept-Ranges': 'bytes',
+        'Cache-Control': 'public, max-age=2592000',
+      });
+
+      fs.createReadStream(filepath).pipe(res);
+    }
+  } catch (err) {
+    if (err.code === 'ENOENT') {
+      return res.status(404).send('Not Found');
+    }
+    next(err);
+  }
+});
+
+// Static middleware for images and other files
 app.use(
   '/media',
   express.static(IMAGES_DIR, {
-    fallthrough: false,
-    maxAge: '7d',
+    fallthrough: true,
   }),
 );
 
@@ -78,7 +132,7 @@ app.use(async (req, res, next) => {
   }
 
   try {
-    await fs.access(path.join(CLIENT_DIST_DIR, 'index.html'));
+    await fsAsync.access(path.join(CLIENT_DIST_DIR, 'index.html'));
     res.sendFile(path.join(CLIENT_DIST_DIR, 'index.html'));
   } catch (err) {
     next(err);
