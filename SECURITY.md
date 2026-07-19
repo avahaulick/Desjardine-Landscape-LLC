@@ -19,6 +19,7 @@ Create `server/.env` from `server/.env.example`.
 Required values:
 
 - `PORT`: API server port, example `4000`
+- `JWT_SECRET`: long random secret used for JWT signing and verification
 - `ALLOWED_ORIGINS`: comma-separated frontend origins, examples:
   - React dev server: `http://localhost:5173`
   - Angular dev server: `http://localhost:4200`
@@ -27,6 +28,7 @@ Example:
 
 ```env
 PORT=4000
+JWT_SECRET=replace-with-strong-secret
 ALLOWED_ORIGINS=http://localhost:5173,http://localhost:4200
 ```
 
