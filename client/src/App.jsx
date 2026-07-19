@@ -351,7 +351,7 @@ function App() {
       <section className="walkthroughs" id="walkthroughs" aria-labelledby="walkthroughs-heading">
         <div className="section-heading">
           <h2 id="walkthroughs-heading">Video Walkthroughs</h2>
-          <p>Watch Pat's work come together in real time.</p>
+          <p>Watch my work come together in real time.</p>
         </div>
 
         <div className="walkthrough-grid">
