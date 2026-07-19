@@ -361,6 +361,12 @@ function App() {
               <p>{video.description}</p>
               <video controls preload="metadata" className="walkthrough-video">
                 <source src={video.src} type="video/mp4" />
+                <track
+                  kind="captions"
+                  src={`/captions/walkthrough-${index + 1}.vtt`}
+                  srcLang="en"
+                  label="English"
+                />
                 Your browser does not support the video tag.
               </video>
               {index === 0 && (
