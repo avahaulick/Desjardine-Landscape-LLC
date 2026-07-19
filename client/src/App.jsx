@@ -319,7 +319,7 @@ function App() {
       <main className="gallery" id="main-content" aria-busy={loading}>
         <div className="section-heading">
           <h2>Project Showcase</h2>
-          <p>Each project card features before/after sliders sourced directly from Patrick&apos;s completed job folders.</p>
+          <p>Each project card features before/after sliders sourced directly from each job site.</p>
         </div>
 
         {loading && (
