@@ -70,23 +70,25 @@ app.get('/media/:filename', async (req, res, next) => {
 
     // Security: prevent directory traversal
     if (!filepath.startsWith(IMAGES_DIR)) {
-      return res.status(403).send('Forbidden');
+      res.status(403).send('Forbidden');
+      return;
     }
 
     // Check if file exists
     const stat = await fsAsync.stat(filepath);
 
     if (!stat.isFile()) {
-      return res.status(404).send('Not Found');
+      res.status(404).send('Not Found');
+      return;
     }
 
     const filesize = stat.size;
-    const range = req.headers.range;
+    const { range } = req.headers;
 
     if (range) {
-      const parts = range.replace(/bytes=/, '').split('-');
-      const start = parseInt(parts[0], 10);
-      const end = parts[1] ? parseInt(parts[1], 10) : filesize - 1;
+      const [startPart, endPart] = range.replace(/bytes=/, '').split('-');
+      const start = parseInt(startPart, 10);
+      const end = endPart ? parseInt(endPart, 10) : filesize - 1;
       const chunksize = end - start + 1;
 
       res.writeHead(206, {
@@ -109,7 +111,8 @@ app.get('/media/:filename', async (req, res, next) => {
     }
   } catch (err) {
     if (err.code === 'ENOENT') {
-      return res.status(404).send('Not Found');
+      res.status(404).send('Not Found');
+      return;
     }
     next(err);
   }

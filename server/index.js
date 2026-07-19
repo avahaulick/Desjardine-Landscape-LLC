@@ -5,12 +5,12 @@ dotenv.config();
 
 const app = require('./app');
 
-const PORT = Number(process.env.PORT || 3002);
-const DATABASE_URL = process.env.DATABASE_URL;
+const { PORT = 3002, DATABASE_URL } = process.env;
+const serverPort = Number(PORT);
 
 const startServer = () => {
-  const server = app.listen(PORT, () => {
-    process.stdout.write(`Server running on http://localhost:${PORT}\n`);
+  const server = app.listen(serverPort, () => {
+    process.stdout.write(`Server running on http://localhost:${serverPort}\n`);
   });
 
   const shutdown = (signal) => {
