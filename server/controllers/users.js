@@ -5,10 +5,9 @@ const BadRequestError = require('../errors/BadRequestError');
 const ConflictError = require('../errors/ConflictError');
 const NotFoundError = require('../errors/NotFoundError');
 const UnauthorizedError = require('../errors/UnauthorizedError');
+const { JWT_SECRET } = require('../config');
 
-const { NODE_ENV, JWT_SECRET = 'dev-secret' } = process.env;
-
-const createToken = (_id) => jwt.sign({ _id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', {
+const createToken = (_id) => jwt.sign({ _id }, JWT_SECRET, {
   expiresIn: '7d',
 });
 
